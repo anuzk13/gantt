@@ -27,13 +27,30 @@ function drawChart(data) {
   ]);
 
   var options = {
-    height: 800,
+    height: 2000,
+    width: 4200,
     gantt: {
-      defaultStartDateMillis: new Date(2015, 3, 28)
+      defaultStartDateMillis: new Date(2015, 3, 28),
+      labelStyle: {
+        fontName: 'Arial',
+        fontSize: 16,
+        },
+        labelMaxWidth: 1100,
+        criticalPathEnabled: false, // Critical path arrows will be the same as other arrows.
+        arrow: {
+            angle: 100,
+            width: 5,
+            color: 'blue',
+            radius: 0
+        }
     }
   };
 
   var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+  google.visualization.events.addListener(chart, 'ready', function () {
+        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        console.log(chart_div.innerHTML);
+      });
 
   chart.draw(data, options);
 }
